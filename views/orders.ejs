@@ -5,21 +5,24 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Orders</title>
     <script src="/app.js" defer></script>
 </head>
 <body>
-    <h1>Cart</h1>
-    <div class="cart">
+    <h1>Orders</h1>
+    <div style="border: 1px dotted black">
+        <h3>order</h3>
+        <p>
+            <%= user.name %>
+        </p>
+        <p>
+            <%= user.email %>
+        </p>
         <% courses.forEach(function(course){ %>
             <%- include('partial/card', {item: course}); %>
             <div>count: <%= course.count %></div>
             <div>total: <%= course.count * course.price %></div>
-            <button class="js-remove" data-id="<%= course.id %>">Delete</button>
         <% }); %>
-        <form action="/orders" method="POST">
-            <button>Order</button>
-        </form>
     </div>
 </body>
 </html>

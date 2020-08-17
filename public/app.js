@@ -16,11 +16,10 @@ if ($cart) {
         method: 'delete',
       })
         .then((res) => res.json())
-        .then((cart) => {
-          console.log(cart);
+        .then(({courses}) => {
           let html = '';
-          if (cart.courses.length) {
-            html = cart.courses.map((course) => {
+          if (courses.length) {
+            html = courses.map((course) => {
              return `
                 <div>
                     <div>${course.title}</div>

@@ -12,6 +12,11 @@
     <h1>Courses</h1>
     <div>
         <%- include('partial/card', {item: course}); %>
+        <a href="/courses/<%= course.id%>/edit?allow=true" target="_blank">edit</a>
+        <form action="/courses/remove" method="post">
+            <input type="hidden" name="id" value="<%= course.id%>">
+            <button>Remove course</button>
+        </form>
     </div>
 </body>
 </html>
