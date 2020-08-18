@@ -10,8 +10,22 @@
 </head>
 <body>
     <h1>Login</h1>
-    <form>
+    <form action="/auth/login" method="post">
+        <input name="email" type="email" placeholder="email">
+        <input name="password" type="password" placeholder="password">
+        <input name="_csrf" type="hidden" value="<%= csrf%>">
+        <button>login</button>
+    </form>
 
+    <h1 style="margin-top: 2rem">Register</h1>
+    <form action="/auth/register" method="post">
+        <input name="name" type="text" placeholder="name">
+        <input name="reg-email" type="email" placeholder="email">
+        <input name="reg-password" type="password" placeholder="password">
+        <input name="reg-password-confirm" type="password" placeholder="confirm password">
+        <input name="_csrf" type="hidden" value="<%= csrf%>">
+
+        <button>Register</button>
     </form>
 </body>
 </html>

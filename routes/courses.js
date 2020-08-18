@@ -1,6 +1,7 @@
 const {Router} = require('express');
 const router = Router();
 const Course = require('../models/course');
+const auth = require('../middleware/auth');
 
 router.get('/', async (req, res, next) => {
   const courses = await Course.find();
@@ -9,7 +10,7 @@ router.get('/', async (req, res, next) => {
   // res.sendFile();
 });
 
-router.post('/edit', async (req, res, next) => {
+router.post('/edit', auth, async (req, res, next) => {
   console.log(req.body);
   const {id, ...course} = req.body;
   await Course.findByIdAndUpdate(id, course);
@@ -17,7 +18,7 @@ router.post('/edit', async (req, res, next) => {
   res.redirect('/courses');
 });
 
-router.post('/remove', async (req, res, next) => {
+router.post('/remove', auth, async (req, res, next) => {
   // console.log(req.body);
   // console.log(req.query.id);
   try {
@@ -40,7 +41,7 @@ router.get('/:id', async (req, res, next) => {
   // res.sendFile();
 });
 
-router.get('/:id/edit', async (req, res, next) => {
+router.get('/:id/edit', auth, async (req, res, next) => {
   if (!req.query.allow) {
     res.redirect('/');
   }

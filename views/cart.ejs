@@ -15,9 +15,11 @@
             <%- include('partial/card', {item: course}); %>
             <div>count: <%= course.count %></div>
             <div>total: <%= course.count * course.price %></div>
-            <button class="js-remove" data-id="<%= course.id %>">Delete</button>
+            <button class="js-remove" data-id="<%= course.id %>" data-csrf="<%= csrf %>">Delete</button>
         <% }); %>
         <form action="/orders" method="POST">
+            <input name="_csrf" type="hidden" value="<%= csrf%>">
+
             <button>Order</button>
         </form>
     </div>

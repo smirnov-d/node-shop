@@ -15,6 +15,8 @@
         <a href="/courses/<%= course.id%>/edit?allow=true" target="_blank">edit</a>
         <form action="/courses/remove" method="post">
             <input type="hidden" name="id" value="<%= course.id%>">
+            <input name="_csrf" type="hidden" value="<%= csrf%>">
+
             <button>Remove course</button>
         </form>
     </div>

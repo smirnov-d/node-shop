@@ -9,11 +9,15 @@ document.querySelectorAll('.price').forEach((node) => {
 const $cart = document.querySelector('.cart');
 if ($cart) {
   $cart.addEventListener('click',(event) => {
-    if (event.target.classList.contains('js-remove')) {
-      console.log(event.target.dataset.id);
 
+    if (event.target.classList.contains('js-remove')) {
+      console.log('e', event);
       fetch(`/cart/remove/${event.target.dataset.id}`, {
         method: 'delete',
+        // todo: why header?? "body: JSON.stringify({_csrf: event.target.dataset.csrf})" don't work ?
+        headers: {
+          'X-XSRF-TOKEN': event.target.dataset.csrf,
+        }
       })
         .then((res) => res.json())
         .then(({courses}) => {

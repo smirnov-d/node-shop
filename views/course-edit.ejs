@@ -23,6 +23,8 @@
             <input type="text" name="url" value="<%= course.url %>" required>
         </div>
         <input type="hidden" name="id" value="<%= course.id %>">
+        <input name="_csrf" type="hidden" value="<%= csrf%>">
+
         <button>Edit</button>
     </form>
 </body>
