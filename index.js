@@ -4,6 +4,9 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
 const isAuth = require('./middleware/variables');
 const userMiddleware = require('./middleware/user');
 const User = require('./models/user');
@@ -16,7 +19,7 @@ const ordersRoutes = require('./routes/orders');
 const authRoutes = require('./routes/auth');
 // const ejs = require('ejs');
 
-const PORT = process.env.port || 3000;
+const PORT = process.env.PORT || 3000;
 
 const MONGO_DB_NAME = 'test';//'cluster0'
 const MONGO_DB_PASS = `AWBKqzKk2pi3P5qO`;

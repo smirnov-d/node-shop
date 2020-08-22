@@ -2,10 +2,14 @@ const {Router} = require('express');
 const router = Router();
 const Course = require('../models/course');
 const auth = require('../middleware/auth');
+const mailer = require('../mail');
 
 router.get('/', async (req, res, next) => {
   const courses = await Course.find();
   // console.log('courses', courses);
+
+
+  await mailer("Hello").catch(console.error);
   res.render('courses', {courses});
   // res.sendFile();
 });
