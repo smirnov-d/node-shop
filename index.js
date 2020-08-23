@@ -1,6 +1,8 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
+const helmet = require('helmet');
+const compression = require('compression');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
@@ -9,7 +11,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 const isAuth = require('./middleware/variables');
 const userMiddleware = require('./middleware/user');
-const User = require('./models/user');
+const errorMiddleware = require('./middleware/error');
 
 const homeRoutes = require('./routes/home');
 const coursesRoutes = require('./routes/courses');
@@ -17,17 +19,17 @@ const addRoutes = require('./routes/add');
 const cartRoutes = require('./routes/cart');
 const ordersRoutes = require('./routes/orders');
 const authRoutes = require('./routes/auth');
+const profileRoutes = require('./routes/profile');
 // const ejs = require('ejs');
 
 const PORT = process.env.PORT || 3000;
 
-const MONGO_DB_NAME = 'test';//'cluster0'
-const MONGO_DB_PASS = `AWBKqzKk2pi3P5qO`;
-const MONGO_DB_URI = `mongodb+srv://smirnov-d:${MONGO_DB_PASS}@cluster0.u3fhv.mongodb.net/${MONGO_DB_NAME}`;
+const MONGO_DB_URI = `mongodb+srv://smirnov-d:${process.env.MONGO_DB_PASS}@cluster0.u3fhv.mongodb.net/${process.env.MONGO_DB_NAME}`;
 
 const server = express();
 server.set('view engine', 'ejs');
 server.use(express.static(path.join(__dirname, 'public')));
+server.use('/images', express.static(path.join(__dirname, 'images')));
 server.use(express.urlencoded({extended: true}));
 
 const store = new MongoDBStore({
@@ -41,7 +43,8 @@ server.use(session({
   resave: false,
   saveUninitialized: false,
 }));
-
+server.use(helmet());
+server.use(compression());
 server.use(csrf());
 server.use(isAuth);
 server.use(userMiddleware);
@@ -66,6 +69,10 @@ server.use('/add', addRoutes);
 server.use('/cart', cartRoutes);
 server.use('/orders', ordersRoutes);
 server.use('/auth', authRoutes);
+server.use('/profile', profileRoutes);
+
+// 404
+server.use(errorMiddleware)
 
 async function start() {
   try {

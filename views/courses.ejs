@@ -14,7 +14,9 @@
         <% courses.forEach(function(course){ %>
             <%- include('partial/card', {item: course}); %>
             <a href="/courses/<%= course.id%>" target="_blank">View</a>
-            <a href="/courses/<%= course.id%>/edit?allow=true" target="_blank">edit</a>
+            <% if (userId === course.userId.toString()) { %>
+                <a href="/courses/<%= course.id%>/edit?allow=true">edit</a>
+            <% } %>
             <form action="/cart/add" method="post">
                 <input type="hidden" name="id" value="<%= course.id%>">
                 <input name="_csrf" type="hidden" value="<%= csrf%>">

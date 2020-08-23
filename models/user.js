@@ -13,6 +13,13 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  resetToken: {
+    type: String,
+  },
+  resetTokenExp: {
+    type: Date,
+  },
+  avatar: String,
   cart: {
     items:[
       {
