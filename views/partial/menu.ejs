@@ -1,0 +1,36 @@
+<%
+const menu = [
+    {
+        link: '/',
+        label: 'Home',
+    },
+    {
+        link: '/courses',
+        label: 'Courses',
+    },
+    {
+        link: '/cart',
+        label: 'Cart',
+    },
+    {
+        link: '/auth/login',
+        label: 'Login',
+    },
+    {
+        link: '/auth/logout',
+        label: 'Logout',
+    },
+    {
+        link: '/profile',
+        label: 'Profile',
+    },
+]
+%>
+<nav>
+    <% menu.forEach(function({link, label}) { %>
+        <div>
+            <a href="<%= link %>"><%= label %></a>
+        </div>
+    <% }); %>
+</nav>
+

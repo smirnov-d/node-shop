@@ -1,31 +1,19 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Edit</title>
-</head>
-<body>
-    <h1>add</h1>
-    <form action="/courses/edit" method="POST">
-        <div>
-            <label for="title">Title</label>
-            <input type="text" name="title" value="<%= course.title %>" required>
-        </div>
-        <div>
-            <label for="title">Price</label>
-            <input type="number" name="price" min="1" value="<%= course.price %>" required>
-        </div>
-        <div>
-            <label for="title">Url</label>
-            <input type="text" name="url" value="<%= course.url %>" required>
-        </div>
-        <input type="hidden" name="id" value="<%= course.id %>">
-        <input name="_csrf" type="hidden" value="<%= csrf%>">
+<h1>add</h1>
+<form action="/courses/edit" method="POST">
+    <div>
+        <label for="title">Title</label>
+        <input type="text" name="title" value="<%= course.title %>" required>
+    </div>
+    <div>
+        <label for="title">Price</label>
+        <input type="number" name="price" min="1" value="<%= course.price %>" required>
+    </div>
+    <div>
+        <label for="title">Url</label>
+        <input type="text" name="url" value="<%= course.url %>" required>
+    </div>
+    <input type="hidden" name="id" value="<%= course.id %>">
+    <input name="_csrf" type="hidden" value="<%= csrf%>">
 
-        <button>Edit</button>
-    </form>
-</body>
-</html>
+    <button>Edit</button>
+</form>

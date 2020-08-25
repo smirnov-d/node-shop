@@ -1,27 +1,14 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <script src="/app.js" defer></script>
-</head>
-<body>
-    <h1>Cart</h1>
-    <div class="cart">
-        <% courses.forEach(function(course){ %>
-            <%- include('partial/card', {item: course}); %>
-            <div>count: <%= course.count %></div>
-            <div>total: <%= course.count * course.price %></div>
-            <button class="js-remove" data-id="<%= course.id %>" data-csrf="<%= csrf %>">Delete</button>
-        <% }); %>
-        <form action="/orders" method="POST">
-            <input name="_csrf" type="hidden" value="<%= csrf%>">
+<h1>Cart</h1>
+<div class="cart">
+    <% courses.forEach(function(course){ %>
+        <%- include('partial/card', {item: course}); %>
+        <div>count: <%= course.count %></div>
+        <div>total: <%= course.count * course.price %></div>
+        <button class="js-remove" data-id="<%= course.id %>" data-csrf="<%= csrf %>">Delete</button>
+    <% }); %>
+    <form action="/orders" method="POST">
+        <input name="_csrf" type="hidden" value="<%= csrf%>">
 
-            <button>Order</button>
-        </form>
-    </div>
-</body>
-</html>
+        <button>Order</button>
+    </form>
+</div>

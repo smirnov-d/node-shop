@@ -13,16 +13,8 @@ const ordersSchema = new Schema({
         ref: 'Course',
         required: true,
       },
-      // course: {
-      //   type: Object,
-      //   required: true
-      // }
     },
   ],
-  // user: {
-  //   id: Schema.Types.ObjectId,
-  //   ref: 'User',
-  // },
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',

@@ -1,28 +1,15 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Orders</title>
-    <script src="/app.js" defer></script>
-</head>
-<body>
-    <h1>Orders</h1>
-    <div style="border: 1px dotted black">
-        <h3>order</h3>
-        <p>
-            <%= user.name %>
-        </p>
-        <p>
-            <%= user.email %>
-        </p>
-        <% courses.forEach(function(course){ %>
-            <%- include('partial/card', {item: course}); %>
-            <div>count: <%= course.count %></div>
-            <div>total: <%= course.count * course.price %></div>
-        <% }); %>
-    </div>
-</body>
-</html>
+<h1>Orders</h1>
+<div style="border: 1px dotted black">
+    <h3>order</h3>
+    <p>
+        <%= user.name %>
+    </p>
+    <p>
+        <%= user.email %>
+    </p>
+    <% courses.forEach(function(course){ %>
+        <%- include('partial/card', {item: course}); %>
+        <div>count: <%= course.count %></div>
+        <div>total: <%= course.count * course.price %></div>
+    <% }); %>
+</div>

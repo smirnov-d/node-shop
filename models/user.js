@@ -46,12 +46,10 @@ userSchema.methods.addToCart = function (course) {
   } else {
     items.push({
       courseId: course._id,
-      // ...course,
       count: 1,
     });
   }
 
-  // todo: avoiding mutation. Why does it a good practice?
   this.cart.items = items;
 
   return this.save();
@@ -59,24 +57,17 @@ userSchema.methods.addToCart = function (course) {
 
 userSchema.methods.removeFromCart = function (id) {
   const items = [...this.cart.items];
-  console.log('id', id, items);
   const idx = items.findIndex(({courseId}) => courseId.toString() === id.toString());
-  console.log(idx);
   if (idx === -1) {
     return;
   }
-
-  console.log('count', items[idx].count);
 
   if (items[idx].count === 1) {
     items.splice(idx, 1);
   } else {
     items[idx].count--;
   }
-
   this.cart.items = items;
-
-  console.log('before return', this.cart.items);
 
   return this.save();
 }

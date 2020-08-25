@@ -4,8 +4,8 @@ const Orders = require('../models/orders');
 
 router.get('/', async (req, res, next) => {
   const orders = await Orders.findOne({userId: req.user.id}).populate('userId').populate('courses.courseId');
-  // console.log(orders);
   res.render('orders', {
+    title: 'Order',
     user: {
       ...orders.userId._doc,
     },
@@ -23,13 +23,8 @@ router.post('/', async (req, res, next) => {
     courses: req.user.cart.items,
   })
   await order.save();
-
-  // console.log(req.body);
-  // const {id, ...course} = req.body;
-  // await Course.findByIdAndUpdate(id, course);
-  // // console.log('courses', courses);
-  res.redirect('/orders');
   req.user.clearCart();
+  res.redirect('/orders');
 });
 
 module.exports = router;

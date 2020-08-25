@@ -1,26 +1,13 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Profile</title>
-    <script src="/app.js" defer></script>
-</head>
-<body>
-    <h1>Profile</h1>
-    <img src="/<%= user.avatar || 'https://c7.hotpng.com/preview/716/411/705/anakin-skywalker-chewbacca-yoda-leia-organa-junk-food-black-and-white-soldiers.jpg' %>" alt="<%= user.name %>">
-    <p>
-        Your e-mail: <%= user.email %>
-    </p>
-    <form action="/profile" method="POST" enctype="multipart/form-data">
-        <input type="file" name="avatar">
-        <input type="text" name="name" value="<%= user.name %>">
+<h1>Profile</h1>
+<img src="/<%= user.avatar || 'https://c7.hotpng.com/preview/716/411/705/anakin-skywalker-chewbacca-yoda-leia-organa-junk-food-black-and-white-soldiers.jpg' %>" alt="<%= user.name %>">
+<p>
+    Your e-mail: <%= user.email %>
+</p>
+<form action="/profile" method="POST" enctype="multipart/form-data">
+    <input type="file" name="avatar">
+    <input type="text" name="name" value="<%= user.name %>">
 
-        <input name="_csrf" type="hidden" value="<%= csrf %>">
+    <input name="_csrf" type="hidden" value="<%= csrf %>">
 
-        <button>save</button>
-    </form>
-</body>
-</html>
+    <button>save</button>
+</form>

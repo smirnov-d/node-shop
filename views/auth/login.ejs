@@ -1,32 +1,19 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Orders</title>
-    <script src="/app.js" defer></script>
-</head>
-<body>
-    <h1>Login</h1>
-    <form action="/auth/login" method="post">
-        <input name="email" type="email" placeholder="email">
-        <input name="password" type="password" placeholder="password">
-        <input name="_csrf" type="hidden" value="<%= csrf%>">
-        <a href="/auth/reset">reset password</a>
-        <button>login</button>
-    </form>
+<h1>Login</h1>
+<form action="/auth/login" method="post">
+    <input name="email" type="email" placeholder="email">
+    <input name="password" type="password" placeholder="password">
+    <input name="_csrf" type="hidden" value="<%= csrf%>">
+    <a href="/auth/reset">reset password</a>
+    <button>login</button>
+</form>
 
-    <h1 style="margin-top: 2rem">Register</h1>
-    <form action="/auth/register" method="post">
-        <input name="name" type="text" placeholder="name">
-        <input name="reg-email" type="email" placeholder="email">
-        <input name="reg-password" type="password" placeholder="password">
-        <input name="reg-password-confirm" type="password" placeholder="confirm password">
-        <input name="_csrf" type="hidden" value="<%= csrf%>">
+<h1 style="margin-top: 2rem">Register</h1>
+<form action="/auth/register" method="post">
+    <input name="name" type="text" placeholder="name">
+    <input name="reg-email" type="email" placeholder="email">
+    <input name="reg-password" type="password" placeholder="password">
+    <input name="reg-password-confirm" type="password" placeholder="confirm password">
+    <input name="_csrf" type="hidden" value="<%= csrf%>">
 
-        <button>Register</button>
-    </form>
-</body>
-</html>
+    <button>Register</button>
+</form>

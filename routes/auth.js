@@ -5,32 +5,32 @@ const router = new Router()
 const User = require('../models/user')
 const mailer = require('../mail')
 
-router.get('/login', async (req, res, next) => {
-  res.render('auth/login')
-})
-
-router.post('/login', async (req, res, next) => {
-  const { email, password } = req.body
-
-  const user = await User.findOne({ email })
-
-  if (user && await bcrypt.compare(password, user.password)) {
-    // const userId = '5f2ec06534a93e1568dbfef3';
-    req.session.user = user
-    req.session.isAuth = true
-    req.session.save((err) => {
-      if (err) {
-        throw err
-      }
-      res.redirect('/')
+router.route('/login')
+  .get(async (req, res, next) => {
+    res.render('auth/login', {
+      title: 'Login',
     })
-  } else {
-    return res.redirect('/auth/login')
-  }
-})
+  })
+  .post(async (req, res, next) => {
+    const { email, password } = req.body
+
+    const user = await User.findOne({ email })
+
+    if (user && await bcrypt.compare(password, user.password)) {
+      req.session.user = user
+      req.session.isAuth = true
+      req.session.save((err) => {
+        if (err) {
+          throw err
+        }
+        res.redirect('/')
+      })
+    } else {
+      return res.redirect('/auth/login')
+    }
+  });
 
 router.post('/register', async (req, res, next) => {
-  // req.session.isAuthentificated = true;
   const name = req.body.name
   const email = req.body['reg-email']
   const password = req.body['reg-password']
@@ -50,7 +50,6 @@ router.post('/register', async (req, res, next) => {
       items: []
     },
   })
-  console.log('user', user)
 
   await user.save()
 
@@ -63,39 +62,45 @@ router.get('/logout', (req, res, next) => {
   })
 })
 
-router.get('/reset', async (req, res, next) => {
-  res.render('auth/reset')
-})
-
-router.post('/reset', async (req, res, next) => {
-  try {
-    crypto.randomBytes(32, async (err, buffer) => {
-      if (err) {
-        throw err
-      }
-
-      const token = buffer.toString('hex')
-
-      const user = await User.findOne({ email: req.body.email })
-
-      if (user) {
-        const expTime = 60 * 60 * 1000 // 1 hour ms
-        user.resetToken = token
-        user.resetTokenExp = Date.now() + expTime
-        await user.save()
-        const url = `${process.env.BASE_URL}:${process.env.PORT}/auth/password/${token}`
-        await mailer(`
-            <h3>reset password</h3>
-            <p>for change password please go <a href="${url}">here</a></p>
-        `, user.email).catch(console.error)
-        return res.redirect('/auth/login')
-      }
-      return res.redirect('/auth/login#no-user')
+router.route('/reset')
+  .get(async (req, res, next) => {
+    res.render('auth/reset', {
+      title: 'Reset password',
     })
-  } catch (e) {
-    throw e
-  }
-})
+  })
+  .post(async (req, res, next) => {
+    try {
+      crypto.randomBytes(32, async (err, buffer) => {
+        if (err) {
+          throw err
+        }
+
+        const token = buffer.toString('hex')
+
+        const user = await User.findOne({ email: req.body.email })
+
+        if (user) {
+          const expTime = 60 * 60 * 1000 // 1 hour ms
+          user.resetToken = token
+          user.resetTokenExp = Date.now() + expTime
+          await user.save()
+          const url = `${process.env.BASE_URL}:${process.env.PORT}/auth/password/${token}`
+          await mailer({
+            html: `
+                <h3>reset password</h3>
+                <p>for change password please go <a href="${url}">here</a></p>
+            `,
+            to: user.email,
+            subject: 'Reset password',
+          }).catch(console.error)
+          return res.redirect('/auth/login')
+        }
+        return res.redirect('/auth/login#no-user')
+      })
+    } catch (e) {
+      throw e
+    }
+  });
 
 router.get('/password/:token', async (req, res, next) => {
   if (!req.params.token) {
@@ -112,6 +117,7 @@ router.get('/password/:token', async (req, res, next) => {
 
     if (user) {
       return res.render('auth/password', {
+        title: 'New password',
         userId: user._id.toString(),
         token: req.params.token,
       })
@@ -140,7 +146,6 @@ router.post('/password', async (req, res, next) => {
 
     if (user) {
       user.password = await bcrypt.hash(password, 10);
-      // todo: remove props;
       user.resetToken = undefined;
       user.resetTokenExp = undefined;
       await user.save()

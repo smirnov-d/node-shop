@@ -1,17 +1,12 @@
 const fs = require('fs');
 const path = require('path');
-const Course = require('../models/course');
-
 const filePath = path.join(path.dirname(process.mainModule.filename), 'data', 'cart.json');
-console.log(filePath);
 
 class Cart {
   static async add(course) {
     const cart = await Cart.fetch();
-    // console.log('course', course);
     const idx = cart.courses.findIndex(({id}) => id === course.id);
 
-    // console.log('test', cart[idx]);
     if (idx === -1) {
       cart.courses.push({
         ...course,
