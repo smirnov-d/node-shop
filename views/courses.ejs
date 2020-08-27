@@ -1,16 +1,21 @@
 <h1>Courses</h1>
-<div>
+<!--todo: justify-content: space-around doesn't work-->
+<div style="display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 30px;">
     <% courses.forEach(function(course){ %>
-        <%- include('partial/card', {item: course}); %>
-        <a href="/courses/<%= course.id%>" target="_blank">View</a>
-        <% if (userId === course.userId.toString()) { %>
-            <a href="/courses/<%= course.id%>/edit?allow=true">edit</a>
-        <% } %>
-        <form action="/cart/add" method="post">
-            <input type="hidden" name="id" value="<%= course.id%>">
-            <input name="_csrf" type="hidden" value="<%= csrf%>">
+        <div class="card">
+            <%- include('partial/card', {item: course}); %>
+            <a href="/courses/<%= course.id%>" target="_blank">View</a>
+            <% if (userId === course.userId.toString()) { %>
+                <a href="/courses/<%= course.id%>/edit?allow=true">edit</a>
+            <% } %>
+            <form action="/cart/add" method="post">
+                <input type="hidden" name="id" value="<%= course.id%>">
+                <input name="_csrf" type="hidden" value="<%= csrf%>">
 
-            <button>Add to cart</button>
-        </form>
+                <button>Add to cart</button>
+            </form>
+        </div>
     <% }); %>
 </div>
