@@ -5,6 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Content-Security-Policy" content="img-src *">
     <title><%- defineContent('title') %></title>
     <link rel="stylesheet" href="/app.css">
     <script src="/app.js" defer></script>
@@ -12,10 +13,10 @@
 <body>
     <div class="grid">
         <header class="header">
-            <a href="#" class="logo">logo</a>
+            <a href="#" class="logo">E-Shop</a>
             <%- include('../partial/menu'); %>
             <div class="info">
-                <a href="tel:+333(33)333-33-33">+333 (33) 333-33-33</a>
+                <a href="tel:+333(33)333-33-33" class="info__link">+333 (33) 333-33-33</a>
             </div>
         </header>
 

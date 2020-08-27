@@ -2,9 +2,11 @@ const {Router} = require('express');
 const router = Router();
 
 module.exports = function (req, res, next) {
-  res.locals.isAuth = req.session.isAuthentificated;
+  res.set('Content-Security-Policy', 'img-src *');
+
+  res.locals.isAuth = req.session.isAuth;
   res.locals.csrf = req.csrfToken();
-  res.locals.routes = [
+  const routes = [
     {
       link: '/',
       label: 'Home',
@@ -19,6 +21,7 @@ module.exports = function (req, res, next) {
       link: '/cart',
       label: 'Cart',
       isActive: false,
+      isPrivate: true,
     },
     {
       link: '/auth/login',
@@ -29,18 +32,23 @@ module.exports = function (req, res, next) {
       link: '/auth/logout',
       label: 'Logout',
       isActive: false,
+      isPrivate: true,
     },
     {
       link: '/profile',
       label: 'Profile',
       isActive: false,
+      isPrivate: true,
     },
   ];
 
+  res.locals.routes = routes.filter(({label, isPrivate}) => {
+    return res.locals.isAuth ? label !== 'Login' : !isPrivate;
+  });
+
   const current = res.locals.routes.find(({link}) => {
-    const re = new RegExp("^"+link+"$");
-    // return req.originalUrl === '/' ? req.originalUrl === link : req.originalUrl.startsWith(link);
-    return req.originalUrl === '/' ? req.originalUrl === link : re.test(req.originalUrl);
+    const re = new RegExp("^"+link);
+    return req.originalUrl === '/' ? req.originalUrl === link : re.test(req.originalUrl) && link !== '/';
   });
 
   if (current) {
