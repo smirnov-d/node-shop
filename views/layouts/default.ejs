@@ -6,19 +6,30 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><%- defineContent('title') %></title>
+    <link rel="stylesheet" href="/app.css">
     <script src="/app.js" defer></script>
 </head>
 <body>
-    <header>
+    <div class="grid">
+        <!--<header class="header">
+            <a href="#" class="logo">logo</a>
+            <div class="info">hello world</div>
+        </header>-->
+
+        <a href="#" class="logo">logo</a>
+        <div class="info">hello world</div>
+
         <%- include('../partial/menu'); %>
-    </header>
 
-    <main>
-        <%- body %>
-    </main>
+        <div class="navigation"></div>
+        <main class="main">
+            <%- body %>
+        </main>
+        <aside class="sidebar"></aside>
 
-    <footer>
-
-    </footer>
+        <footer class="footer">
+            &copy; 2020
+        </footer>
+    </div>
 </body>
 </html>
