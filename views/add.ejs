@@ -1,18 +1,19 @@
-<h1>add</h1>
-<form action="/add" method="POST">
-    <div>
-        <label for="title">Title</label>
-        <input type="text" name="title" required>
-    </div>
-    <div>
-        <label for="title">Price</label>
-        <input type="number" name="price" min="1" required>
-    </div>
-    <div>
-        <label for="title">Url</label>
-        <input type="text" name="url" required>
-    </div>
-    <input name="_csrf" type="hidden" value="<%= csrf%>">
+<div style="margin: auto">
+    <h1 class="h1">Add Course</h1>
+    <form action="/add" method="POST">
+        <div class="my-1">
+            <input type="text" name="title" placeholder="title" required>
+        </div>
+        <div class="my-1">
+            <input type="number" name="price" min="1" placeholder="price" required>
+        </div>
+        <div class="my-1">
+            <input type="text" name="url" placeholder="url" required>
+        </div>
+        <input name="_csrf" type="hidden" value="<%= csrf%>">
 
-    <button>Add</button>
-</form>
+        <div class="my-1">
+            <button>Add</button>
+        </div>
+    </form>
+</div>

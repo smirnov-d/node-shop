@@ -12,7 +12,7 @@ router.get('/', auth, async (req, res, next) => {
   })
 });
 
-router.post('/', fileMiddleware.single('avatar'), auth, async (req, res, next) => {
+router.post('/', auth, fileMiddleware.single('avatar'), async (req, res, next) => {
   try {
     const user = await User.findById(req.user._id);
     user.name = req.body.name;

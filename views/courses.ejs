@@ -1,8 +1,12 @@
-<h1 class="h1">Courses</h1>
-<!--todo: justify-content: space-around doesn't work-->
+<div style="display: flex; align-items: center; justify-content: space-between">
+    <h1>Courses</h1>
+    <a href="/add" class="add">+</a>
+</div>
+<!--todo: justify-content: space-around doesn't work / place-content: space-evenly; with grid template?-->
 <div style="display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-gap: 30px;">
+    grid-gap: 30px;
+    margin-top: 1rem;">
     <% courses.forEach(function(course){ %>
         <div class="card">
             <%- include('partial/card', {item: course}); %>

@@ -1,13 +1,21 @@
-<h1>Profile</h1>
-<img src="/<%= user.avatar || 'https://c7.hotpng.com/preview/716/411/705/anakin-skywalker-chewbacca-yoda-leia-organa-junk-food-black-and-white-soldiers.jpg' %>" alt="<%= user.name %>">
-<p>
-    Your e-mail: <%= user.email %>
-</p>
-<form action="/profile" method="POST" enctype="multipart/form-data">
-    <input type="file" name="avatar">
-    <input type="text" name="name" value="<%= user.name %>">
+<div style="justify-self: center">
+    <h1 class="h1">Profile</h1>
+    <img class="avatar" src="/<%= user.avatar || 'https://c7.hotpng.com/preview/716/411/705/anakin-skywalker-chewbacca-yoda-leia-organa-junk-food-black-and-white-soldiers.jpg' %>" alt="<%= user.name %>">
+    <p class="my-1">
+        E-mail: <%= user.email %>
+    </p>
+    <!-- todo: ?? -->
+    <form action="/profile?_csrf=<%= csrf %>" method="POST" enctype="multipart/form-data">
+        <div class="my-1">
+            <input type="file" name="avatar"/>
+        </div>
+        <div class="my-1">
+            <input type="text" name="name" value="<%= user.name %>">
+        </div>
 
-    <input name="_csrf" type="hidden" value="<%= csrf %>">
-
-    <button>save</button>
-</form>
+        <!-- <input name="_csrf" type="hidden" value="<%= csrf %>"> -->
+        <div class="my-1">
+            <button>save</button>
+        </div>
+    </form>
+</div>

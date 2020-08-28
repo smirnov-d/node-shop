@@ -1,19 +1,46 @@
-<h1>Login</h1>
-<form action="/auth/login" method="post">
-    <input name="email" type="email" placeholder="email">
-    <input name="password" type="password" placeholder="password">
-    <input name="_csrf" type="hidden" value="<%= csrf%>">
-    <a href="/auth/reset">reset password</a>
-    <button>login</button>
-</form>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(200px, 1fr)); grid-auto-rows: auto;">
+    <div class="text-center">
+        <h1>Login</h1>
+        <form action="/auth/login" method="post">
+            <div class="my-1">
+                <input name="email" type="email" placeholder="email">
+            </div>
+            <div class="my-1">
+                <input name="password" type="password" placeholder="password">
+            </div>
+            <div class="my-1">
+                <a href="/auth/reset">reset password</a>
+            </div>
+            <input name="_csrf" type="hidden" value="<%= csrf%>">
+            <div class="my-1">
+                <button>login</button>
+            </div>
+        </form>
+    </div>
 
-<h1 style="margin-top: 2rem">Register</h1>
-<form action="/auth/register" method="post">
-    <input name="name" type="text" placeholder="name">
-    <input name="reg-email" type="email" placeholder="email">
-    <input name="reg-password" type="password" placeholder="password">
-    <input name="reg-password-confirm" type="password" placeholder="confirm password">
-    <input name="_csrf" type="hidden" value="<%= csrf%>">
+    <div class="text-center">
+        <h1>Register</h1>
+        <form action="/auth/register" method="post">
+            <div class="my-1">
+                <input name="name" type="text" placeholder="name">
+            </div>
+            <div class="my-1">
+                <input name="reg-email" type="email" placeholder="email">
+            </div>
+            <div class="my-1">
+                <input name="reg-password" type="password" placeholder="password">
+            </div>
+            <div class="my-1">
+                <input name="reg-password-confirm" type="password" placeholder="confirm password">
+            </div>
+            <input name="_csrf" type="hidden" value="<%= csrf%>">
 
-    <button>Register</button>
-</form>
+            <div class="my-1">
+                <button>Register</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
