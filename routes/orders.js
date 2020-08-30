@@ -4,17 +4,21 @@ const Orders = require('../models/orders');
 const auth = require('../middleware/auth');
 
 router.get('/', auth, async (req, res, next) => {
-  const orders = await Orders.findOne({userId: req.user.id}).populate('userId').populate('courses.courseId');
+  // get the last user's order. the "orders" table doesn't clear after order.
+  const orders = await Orders.findOne({userId: req.user.id}).sort({date: 'desc'}).populate('userId').populate('courses.courseId');
+
+  const courses = orders.courses.map((item) => ({
+    ...item.courseId._doc,
+    count: item.count,
+    id: item.courseId._id,
+  }));
+
   res.render('orders', {
     title: 'Order',
     user: {
       ...orders.userId._doc,
     },
-    courses: orders.courses.map((item) => ({
-      ...item.courseId._doc,
-      count: item.count,
-      id: item.courseId._id,
-    })),
+    courses: courses,
   });
 });
 

@@ -9,6 +9,7 @@ router.route('/login')
   .get(async (req, res, next) => {
     res.render('auth/login', {
       title: 'Login',
+      layout: 'layouts/empty',
     })
   })
   .post(async (req, res, next) => {

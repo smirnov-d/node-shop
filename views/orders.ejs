@@ -7,9 +7,13 @@
     <p>
         <%= user.email %>
     </p>
-    <% courses.forEach(function(course){ %>
-        <%- include('partial/card', {item: course}); %>
-        <div>count: <%= course.count %></div>
-        <div>total: <%= course.count * course.price %></div>
-    <% }); %>
+    <div class="card__wrap">
+        <% courses.forEach(function(course){ %>
+            <div class="card">
+                <%- include('partial/card', {item: course}); %>
+                <div>count: <%= course.count %></div>
+                <div style="justify-self: right">total: <%= course.count * course.price %></div>
+            </div>
+        <% }); %>
+    </div>
 </div>

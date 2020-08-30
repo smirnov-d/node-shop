@@ -1,14 +1,26 @@
-<h1>Cart</h1>
-<div class="cart">
-    <% courses.forEach(function(course){ %>
-        <%- include('partial/card', {item: course}); %>
-        <div>count: <%= course.count %></div>
-        <div>total: <%= course.count * course.price %></div>
-        <button class="js-remove" data-id="<%= course.id %>" data-csrf="<%= csrf %>">Delete</button>
-    <% }); %>
-    <form action="/orders" method="POST">
-        <input name="_csrf" type="hidden" value="<%= csrf%>">
+<% if (courses.length) { %>
+    <div style="display: flex; align-items: center; justify-content: space-between">
+        <h1>Cart</h1>
+        <form action="/orders" method="POST">
+            <input name="_csrf" type="hidden" value="<%= csrf %>">
+            <button>Order</button>
+        </form>
+    </div>
+    <div class="cart">
+        <% if (courses.length){ %>
+            <div class="card__wrap">
+                <% courses.forEach(function(course) { %>
+                    <div class="card">
+                        <%- include('partial/card', {item: course}); %>
+                        <div>count: <%= course.count %></div>
+                        <div style="justify-self: right">total: <%= course.count * course.price %></div>
+                        <button style="grid-column: span 2" class="js-remove" data-id="<%= course.id %>" data-csrf="<%= csrf %>">Delete</button>
+                    </div>
+                <% }); %>
+            </div>
+        <% } %>
+    </div>
+<% } else { %>
+    <h2 class="h2" style="margin: auto">Cart is empty</h2>
+<% } %>
 
-        <button>Order</button>
-    </form>
-</div>
