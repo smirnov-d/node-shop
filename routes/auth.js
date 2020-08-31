@@ -1,9 +1,11 @@
 const { Router } = require('express')
 const crypto = require('crypto')
 const bcrypt = require('bcrypt')
+const {validationResult} = require('express-validator')
 const router = new Router()
 const User = require('../models/user')
 const mailer = require('../mail')
+const {registerValidators} = require('../utils/validators');
 
 router.route('/login')
   .get(async (req, res, next) => {
@@ -31,7 +33,15 @@ router.route('/login')
     }
   });
 
-router.post('/register', async (req, res, next) => {
+router.post('/register', registerValidators, async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    req.flash('error', errors.array()[0].msg);
+    req.flash('error', errors.array()[2].msg);
+    req.flash('warning', errors.array()[1].msg);
+    return res.status(422).redirect('/auth/login')
+  }
+
   const name = req.body.name
   const email = req.body['reg-email']
   const password = req.body['reg-password']

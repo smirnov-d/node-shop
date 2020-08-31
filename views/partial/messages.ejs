@@ -1,0 +1,14 @@
+<div id="messages">
+    <% Object.keys(messages).forEach(function (type) { %>
+        <% messages[type].forEach(function (message) { %>
+            <div class="message-box message-box-<%= type %>">
+                <i class="fa fa-info-circle fa-2x"></i>
+                <!--<i class="fa fa-warning fa-2x"></i>-->
+                <!--    <i class="fa fa-ban fa-2x"></i>-->
+                <!--    <i class="fa fa-check fa-2x"></i>-->
+                <span class="message-text"><strong><%= type %>:</strong> <%= message %></span>
+                <i class="fa fa-times fa-2x exit-button "></i>
+            </div>
+        <% }) %>
+    <% }) %>
+</div>

@@ -6,6 +6,7 @@ module.exports = function (req, res, next) {
 
   res.locals.isAuth = req.session.isAuth;
   res.locals.csrf = req.csrfToken();
+  res.locals.messages = req.flash();
 
   const routes = [
     {

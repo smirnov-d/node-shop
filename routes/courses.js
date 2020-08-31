@@ -4,12 +4,16 @@ const Course = require('../models/course');
 const auth = require('../middleware/auth');
 
 router.get('/', async (req, res, next) => {
-  const courses = await Course.find();
-  res.render('courses', {
-    courses,
-    title: 'All courses',
-    userId: req.user ? req.user._id.toString() : null,
-  });
+  try {
+    const courses = await Course.find();
+    res.render('courses', {
+      courses,
+      title: 'All courses',
+      userId: req.user ? req.user._id.toString() : null,
+    });
+  } catch (err) {
+    throw err
+  }
 });
 
 router.post('/edit', auth, async (req, res, next) => {

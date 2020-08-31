@@ -8,6 +8,7 @@ const compression = require('compression');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
+const flash = require('connect-flash');
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
@@ -46,6 +47,7 @@ server.use(session({
 server.use(helmet());
 server.use(compression());
 server.use(csrf());
+server.use(flash());
 server.use(isAuth);
 server.use(userMiddleware);
 
@@ -71,7 +73,6 @@ async function start() {
 
   // 404
   server.use(errorMiddleware)
-
 
   try {
     // db connect
