@@ -30,14 +30,14 @@ module.exports = function (req, res, next) {
       isActive: false,
     },
     {
-      link: '/auth/logout',
-      label: 'Logout',
+      link: '/profile',
+      label: 'Profile',
       isActive: false,
       isPrivate: true,
     },
     {
-      link: '/profile',
-      label: 'Profile',
+      link: '/auth/logout',
+      label: 'Logout',
       isActive: false,
       isPrivate: true,
     },

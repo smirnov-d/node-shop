@@ -49,6 +49,7 @@ router.get('/:id', async (req, res, next) => {
   const course = await Course.findById(req.params.id);
   res.render('course', {
     course,
+    userId: req.user._id,
     title: course.title,
   });
 });

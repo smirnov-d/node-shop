@@ -9,7 +9,7 @@
             <%- include('partial/card', {item: course}); %>
             <div class="card__footer">
                 <a href="/courses/<%= course.id%>" class="btn">View</a>
-                <% if (userId === course.userId.toString()) { %>
+                <% if (userId.toString() === course.userId.toString()) { %>
                     <a href="/courses/<%= course.id%>/edit?allow=true" class="btn">edit</a>
                 <% } %>
                 <form action="/cart/add" method="post">

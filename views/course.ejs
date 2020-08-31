@@ -1,10 +1,14 @@
 <div class="card" style="max-width: 300px;margin: auto;">
     <%- include('partial/card', {item: course}); %>
-    <a href="/courses/<%= course.id%>/edit?allow=true" target="_blank">edit</a>
-    <form action="/courses/remove" method="post">
-        <input type="hidden" name="id" value="<%= course.id%>">
-        <input name="_csrf" type="hidden" value="<%= csrf%>">
+    <% if (userId.toString() === course.userId.toString()) { %>
+        <div class="card__footer">
+            <a href="/courses/<%= course.id%>/edit?allow=true" class="btn">edit</a>
+            <form action="/courses/remove" method="post">
+                <input type="hidden" name="id" value="<%= course.id%>">
+                <input name="_csrf" type="hidden" value="<%= csrf%>">
 
-        <button>Remove course</button>
-    </form>
+                <button class="btn">Remove course</button>
+            </form>
+        </div>
+    <% } %>
 </div>
