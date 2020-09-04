@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="/app.css">
     <script src="/app.js" defer></script>
 </head>
-<body>
+<body class="position: relative">
+    <%- include('../partial/messages', {messages: messages}); %>
     <!-- todo: add .wrapper (max-with for content)-->
     <div class="grid">
         <header class="header">

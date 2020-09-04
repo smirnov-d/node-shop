@@ -7,6 +7,13 @@ $error-text: #B83C37;
 $success: #DDF3D5;
 $success-text: #597151;
 
+@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css";
+
+.messages {
+  position: absolute;
+  right: 0;
+}
+
 .message-box{
   width: 440px;
   border-radius: 6px;

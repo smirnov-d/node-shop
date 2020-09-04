@@ -1,6 +1,3 @@
-const {Router} = require('express');
-const router = Router();
-
 module.exports = function (req, res, next) {
   res.set('Content-Security-Policy', 'img-src *');
 

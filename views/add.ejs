@@ -1,14 +1,14 @@
 <div style="margin: auto">
     <h1 class="h1">Add Course</h1>
-    <form action="/add" method="POST">
+    <form action="/add" method="POST" novalidate>
         <div class="my-1">
-            <input type="text" name="title" placeholder="title" required>
+            <input type="text" name="title" placeholder="title" required value="<%= data.title %>">
         </div>
         <div class="my-1">
-            <input type="number" name="price" min="1" placeholder="price" required>
+            <input type="number" name="price" min="1" placeholder="price" required value="<%= data.price %>">
         </div>
         <div class="my-1">
-            <input type="text" name="url" placeholder="url" required>
+            <input type="text" name="url" placeholder="url" required value="<%= data.url %>">
         </div>
         <input name="_csrf" type="hidden" value="<%= csrf%>">
 

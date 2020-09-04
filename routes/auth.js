@@ -5,21 +5,27 @@ const {validationResult} = require('express-validator')
 const router = new Router()
 const User = require('../models/user')
 const mailer = require('../mail')
-const {registerValidators} = require('../utils/validators');
+const {loginValidators, registerValidators} = require('../utils/validators');
 
 router.route('/login')
-  .get(async (req, res, next) => {
+  .get((req, res, next) => {
     res.render('auth/login', {
       title: 'Login',
       layout: 'layouts/empty',
     })
   })
-  .post(async (req, res, next) => {
+  .post(loginValidators, async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      req.flash('error', errors.array().map(({msg}) => msg));
+      return res.redirect('/auth/login');
+    }
+
     const { email, password } = req.body
 
     const user = await User.findOne({ email })
 
-    if (user && await bcrypt.compare(password, user.password)) {
+    if (await bcrypt.compare(password, user.password)) {
       req.session.user = user
       req.session.isAuth = true
       req.session.save((err) => {
@@ -29,6 +35,7 @@ router.route('/login')
         res.redirect('/')
       })
     } else {
+      req.flash('error', 'password is incorrect')
       return res.redirect('/auth/login')
     }
   });
@@ -36,22 +43,13 @@ router.route('/login')
 router.post('/register', registerValidators, async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    req.flash('error', errors.array()[0].msg);
-    req.flash('error', errors.array()[2].msg);
-    req.flash('warning', errors.array()[1].msg);
-    return res.status(422).redirect('/auth/login')
+    req.flash('error', errors.array().map(({msg}) => msg));
+    return res.redirect('/auth/login');
   }
 
-  const name = req.body.name
-  const email = req.body['reg-email']
-  const password = req.body['reg-password']
-  const confirm = req.body['reg-password-confirm']
-
-  const isExist = !!await User.findOne({ email })
-
-  if (isExist || password !== confirm) {
-    return res.redirect('/auth/login')
-  }
+  const name = req.body.name;
+  const email = req.body['reg-email'];
+  const password = req.body['reg-password'];
 
   const user = new User({
     name,
